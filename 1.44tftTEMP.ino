@@ -127,12 +127,14 @@ bool autoConfig()
     {
        delay(500);
     Serial.print(".");
-    display.clear();
-    display.drawString(64, 10, "Connecting to WiFi");
-    display.drawXbm(46, 30, 8, 8, counter % 3 == 0 ? activeSymbole : inactiveSymbole);
-    display.drawXbm(60, 30, 8, 8, counter % 3 == 1 ? activeSymbole : inactiveSymbole);
-    display.drawXbm(74, 30, 8, 8, counter % 3 == 2 ? activeSymbole : inactiveSymbole);
-    display.display(); 
+    tft.println("Hello World!");
+    tft.println("Connecting to WiFi!");
+    //display.clear();
+    //display.drawString(64, 10, "Connecting to WiFi");
+    //display.drawXbm(46, 30, 8, 8, counter % 3 == 0 ? activeSymbole : inactiveSymbole);
+    //display.drawXbm(60, 30, 8, 8, counter % 3 == 1 ? activeSymbole : inactiveSymbole);
+    //display.drawXbm(74, 30, 8, 8, counter % 3 == 2 ? activeSymbole : inactiveSymbole);
+    //display.display(); 
      counter++; 
     }
   }
@@ -241,14 +243,14 @@ void htmlConfig()
         server.handleClient();
         MDNS.update();  
          delay(500);
-          display.clear();
+          /*display.clear();
           display.drawString(64, 5, "WIFI AP:wifi_clock");
           display.drawString(64, 20, "192.168.4.1");
            display.drawString(64, 35, "waiting for config wifi.");
           display.drawXbm(46, 50, 8, 8, counter % 3 == 0 ? activeSymbole : inactiveSymbole);
           display.drawXbm(60, 50, 8, 8, counter % 3 == 1 ? activeSymbole : inactiveSymbole);
           display.drawXbm(74, 50, 8, 8, counter % 3 == 2 ? activeSymbole : inactiveSymbole);
-          display.display();  
+          display.display();  */
            counter++;
         if (WiFi.status() == WL_CONNECTED)
         {
@@ -297,6 +299,10 @@ void setup(void) {
   // may end up with a black screen some times, or all the time.
   //tft.setSPISpeed(40000000);
 
+ bool wifiConfig = autoConfig();
+    if(wifiConfig == false){
+        htmlConfig();//HTML配网
+    }
   Serial.println(F("Initialized"));
 
   uint16_t time = millis();
