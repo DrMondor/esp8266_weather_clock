@@ -47,7 +47,7 @@
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h>
-
+#include <lvgl.h>
 #include "HeFeng.h"
 
 #include "WeatherStationFonts.h"
@@ -270,6 +270,7 @@ void setup(void) {
   Serial.begin(115200);
   Serial.print(F("Hello! ST77xx TFT Test"));
 
+  lv_init();
   // Use this initializer if using a 1.8" TFT screen:
 //  tft.initR(INITR_BLACKTAB);      // Init ST7735S chip, black tab
 
@@ -298,11 +299,11 @@ void setup(void) {
   // Note that speed allowable depends on chip and quality of wiring, if you go too fast, you
   // may end up with a black screen some times, or all the time.
   //tft.setSPISpeed(40000000);
-  //12345
- bool wifiConfig = autoConfig();
-    if(wifiConfig == false){
-        htmlConfig();//HTML配网
-    }
+  //1234545
+  bool wifiConfig = autoConfig();
+  if(wifiConfig == false){
+      htmlConfig();//HTML配网
+  }
   Serial.println(F("Initialized"));
 
   uint16_t time = millis();
